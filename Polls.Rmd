@@ -12,6 +12,18 @@ library(tidyverse)
 ```
 
 ```{r message=FALSE}
-raw <- read_csv("polls_IT-parliament_2018-10-01.csv")
+x <- read_csv("polls_IT-parliament_2018-10-01.csv")
+
+x %>% 
+  select(LN, date, M5S, firm, PD, FdI, n) %>% 
+  gather(key = "party", value = "poll", LN, M5S, PD, FdI) %>% 
+  ggplot(aes(x = date, y = poll, color = party)) + geom_point()
+```
+
+```{r first plot}
+x %>% 
+ggplot(aes(x = date, y = LN, color = "red")) + geom_point() +
+  geom_point(aes(x = date, y = M5S, color = "blue")) + 
+  gather(raw, key = "LN", value = "M5S", na.rm = FALSE)
 ```
 
